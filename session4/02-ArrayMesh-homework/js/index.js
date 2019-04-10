@@ -1,6 +1,7 @@
 var renderer, scene, camera;
 var cubes = [];
 var rot = 0;
+var randomSpeedX = [];
 
 function init() {
   scene = new THREE.Scene();
@@ -35,7 +36,10 @@ function init() {
 
       mesh.position.x = x;
       mesh.position.z = y;
-      mesh.rotation.x = 360*Math.random();
+      mesh.rotation.x += 360*Math.random();
+
+var randomValue = Math.random() * 360;
+    randomSpeedX.push(randomValue);
 
       scene.add(mesh);
       cubes.push(mesh);
@@ -50,13 +54,20 @@ function drawFrame(){
 
   rot += 0.01;
 
-  //forEach takes all the array entries and passes the c as the object, and i as the index
+//  rot += Math.random() * 0.0005 ;//Rotate randomly
+  //forEach takes all the array entries and passes the c as the object, and i is keeping track of the index for each cube
   cubes.forEach(function(c, i) {
     c.rotation.z = rot; //Rotate the object that is referenced in c
-  });
+
+    cubes[i].rotation.x += randomSpeedX[i];
+
+});
 
   renderer.render(scene, camera);
 }
+
+/*
+*/
 
 init();
 drawFrame();
