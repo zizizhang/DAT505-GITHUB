@@ -10,6 +10,21 @@
 <script src="js/libs/stats.min.js"></script>
 ```
 
+Creates a random set of geometry at random positions.
+
+```html
+var groupscale=(Math.random()*-2)+1;
+mesh = new THREE.Mesh( geometry, material );
+mesh.position.x=(Math.random()*-200)+40;
+mesh.position.y=(Math.random()*-100)+50;
+mesh.scale.x=groupscale;
+  mesh.scale.y=groupscale;
+    mesh.scale.z=groupscale;
+
+scene.add( mesh);
+cubes.push(mesh);
+```
+
 Coordinate mapping of the surfaces of the geometry
 
 ```html
@@ -32,5 +47,17 @@ cubes[i].rotation.x = mouseY/window.innerHeight*2;
 cubes[i].rotation.y = mouseX/window.innerWidth*2;
 });
 	renderer.render( scene, camera );
+}
+
+function onWindowResize() {
+  windowHalfX = window.innerWidth / 2;
+  windowHalfY = window.innerHeight / 2;
+  camera.aspect = window.innerWidth / window.innerHeight;
+  renderer.setSize( window.innerWidth, window.innerHeight );
+}
+
+function onDocumentMouseMove( event ) {
+  mouseX = event.clientX - windowHalfX;
+  mouseY = event.clientY - windowHalfY;
 }
 ```
